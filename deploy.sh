@@ -4,8 +4,8 @@ VIDEO_LIST="videos.json"
 PROCESSED_VIDEO_LIST="build/videos.json"
 config="./jsduck.config"
 guidesdir="./htmlguides"
-outdir="./dist/titanium/3.0"
-title="Titanium 3.X - Appcelerator Docs"
+outdir="./dist/platform/latest"
+title="Appcelerator Platform - Appcelerator Docs"
 
 progname=$0
 
@@ -141,26 +141,16 @@ if [ $include_modules ]; then
             exit 1
         fi
     fi
-    if [ ! "$TIZEN_MODULE" ]; then
-        if [ "$TI_ROOT" ]; then
-            TIZEN_MODULE=${TI_ROOT}/titanium_mobile_tizen/modules/tizen/apidoc
-        else
-            echo "No titanium_mobile_tizen dir \$TIZEN_MODULE and \$TI_ROOT not defined. Exiting."
-            exit 1
-        fi
-    fi
     module_dirs="$APPC_MODULES/ti.map/apidoc $APPC_MODULES/ti.facebook/apidoc
                  $APPC_MODULES/ti.nfc/apidoc $APPC_MODULES/ti.newsstand/apidoc $TIZEN_MODULE
                  $APPC_MODULES/ti.coremotion/apidoc $APPC_MODULES/ti.urlsession/apidoc
                  $APPC_MODULES/ti.touchid/apidoc"
 
-    if [ $addon_guidesdir ]; then
         module_dirs+=" $APPC_MODULES/ti.geofence/apidoc $APPC_MODULES/appcelerator.https/apidoc
                        $APPC_MODULES/com.appcelerator.apm/apidoc"
-    fi
 fi
 
-python ${TI_DOCS}/docgen.py -f jsduck -o ./build $module_dirs
+node ${TI_DOCS}/docgen.js -f jsduck -o ./build/ $module_dirs
 
 if [ $addon_guidesdir ]; then
     python ./guides_merger.py --input "${guidesdir}/toc.xml" --addon "${addon_guidesdir}/toc.xml"  --output "./build/merged_guides"
@@ -202,10 +192,6 @@ if [ $production_build ] ; then
         echo "Generating Solr content for Alloy..."
         bash $DOCTOOLS/jsduck2json/alloy2json.sh solr
         cp ./dist/solr_api.json $outdir/../data/solr/alloy_api.json
-    fi
-    if [ -z $addon_guidesdir ]; then
-        sed -i '' 's/\"type\": \"platform\"/\"type\": \"titanium\"/g' $outdir/../data/solr/*.json
-        sed -i '' 's/\-platform\"/\-titanium\"/g' $outdir/../data/solr/*.json
     fi
 else
     compass compile ${JSDUCK}/template/resources/sass

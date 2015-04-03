@@ -2,7 +2,7 @@ DEBUG_TEMPLATE=template
 PROD_TEMPLATE=template-min
 VIDEO_LIST="videos.json"
 PROCESSED_VIDEO_LIST="build/videos.json"
-OUT_DIR="./dist/cloud/latest"
+OUT_DIR="./dist/arrowdb/latest"
 config="./jsduck.config"
 
 progname=$0

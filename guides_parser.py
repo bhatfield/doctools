@@ -18,7 +18,7 @@ parser.add_option("-s", "--show_edit_button",
 if options.output is None or options.input is None:
 	print "please provide --input and --output "
 	exit()
-
+print options.input
 dom = xml.dom.minidom.parse(options.input) # parse an XML file by name
 topics = []
 
@@ -111,13 +111,19 @@ def node2obj(node):
 				fragment = re.sub('http://docs.appcelerator.com/cloud/latest/.*#', '', href)
 				fragment = urllib.unquote(fragment)
 				if fragment.startswith('!'):
-					tag['href'] = '/cloud/latest/#' + fragment
+					tag['href'] = '/arrowdb/latest/#' + fragment
+
+			elif re.search('http://docs.appcelerator.com/arrowdb/latest/.*#.*', href):
+				fragment = re.sub('http://docs.appcelerator.com/arrowdb/latest/.*#', '', href)
+				fragment = urllib.unquote(fragment)
+				if fragment.startswith('!'):
+					tag['href'] = '/arrowdb/latest/#' + fragment
 
 			elif re.search('http://docs.appcelerator.com/platform/latest/.*#.*', href):
 				fragment = re.sub('http://docs.appcelerator.com/platform/latest/.*#', '', href)
 				fragment = urllib.unquote(fragment)
 				if fragment.startswith('!'):
-					tag['href'] = '/platform/latest/#' + fragment
+					tag['href'] = '#' + fragment
 
 			## HACK: Need a better way to handle this
 			elif href.startswith('https://wiki.appcelerator.org/display/guides2/Installing+Platform+SDKs'):

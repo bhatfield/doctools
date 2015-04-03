@@ -1,6 +1,6 @@
 import json, re, sys
 
-solr_category = "cloud"
+solr_category = "arrowdb"
 
 # Helper function to convert unicode string to ASCII
 def u2a(str):

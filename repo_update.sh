@@ -50,8 +50,8 @@ function repo_update {
 }
 
 repo_update jsduck $JSDUCK_DIR upstream master
-repo_update titanium_mobile $TI_DIR upstream 3_5_X
-repo_update alloy $ALLOY_DIR upstream 1_5_X
+repo_update titanium_mobile $TI_DIR upstream 4_0_X
+repo_update alloy $ALLOY_DIR upstream 1_6_X
 repo_update com.appcelerator.apm $APM_DIR origin master
 repo_update ti.coremotione $CORE_MOTION_DIR upstream master
 repo_update ti.facebook $FB_DIR upstream master
@@ -60,7 +60,6 @@ repo_update appcelerator.https $HTTPS_DIR upstream master
 repo_update ti.map $MAP_DIR upstream master
 repo_update ti.nfc $NFC_DIR origin master
 repo_update ti.newsstand $NEWSSTAND_DIR origin master
-repo_update titanium_mobile_tizen $TIZEN_DIR origin 3_2_X
 repo_update ti.touchid $TOUCHID_DIR origin master
 repo_update ti.urlsession $URL_DIR origin master
 
