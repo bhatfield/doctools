@@ -172,7 +172,7 @@ if [ $addon_guidesdir ]; then
 else
     parseropts="--show_edit_button"
 fi
-python ./guides_parser.py --input "${guidesdir}/toc.xml" --output "./build/guides" $parseropts
+node guides_parser --input "${guidesdir}/toc.xml" --output "./build/guides" $parseropts
 
 # Assume video list is pre-processed, with real thumbnails 
 cp $VIDEO_LIST $PROCESSED_VIDEO_LIST
