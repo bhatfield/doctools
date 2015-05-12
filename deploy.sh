@@ -23,7 +23,7 @@ usage() {
     echo ""
 }
 
-while getopts ":so:a:c:d:g:t:" opt; do
+while getopts ":so:a:c:d:g:t:j:" opt; do
     case $opt in 
         a)
             if [ "$OPTARG" ]; then
@@ -65,6 +65,9 @@ while getopts ":so:a:c:d:g:t:" opt; do
             if [ "$OPTARG" ]; then
                 title="$OPTARG"
             fi
+            ;;
+        j)
+            jenkins="jenkins"
             ;;
         \?) 
              echo "Invalid option: -$OPTARG">&2
@@ -198,7 +201,11 @@ fi
 
 # Work around for conversion issue
 pushd $guidesdir
-find . -type f -name '*.html' -exec sed -i '' s/\&ndash\;/\-\-/g {} +
+if [ $jenkins ]; then
+    find . -type f -print0 | xargs -0 sed -i 's/\&ndash\;/\-\-/g'
+else
+	find . -type f -name '*.html' -exec sed -i '' s/\&ndash\;/\-\-/g {} +
+fi
 popd
 
 node guides_parser --input "${guidesdir}/toc.xml" --output "./build/guides" $parseropts
